@@ -5,6 +5,7 @@ var use = require('postcss-use');
 module.exports = {
   devtool: 'eval-source-map',
   postcss: [
+    require('postcss-normalize'),
     require('postcss-center'),
     require('postcss-cssnext')(),
     use({modules: ['lost']})
