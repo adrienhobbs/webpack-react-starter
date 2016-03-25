@@ -25,7 +25,6 @@ let MessageSource = {
   },
   getMessages: {
     remote (state) {
-      console.log('get messages');
       if (firebaseRef) {
         firebaseRef.off();
       }
@@ -36,7 +35,6 @@ let MessageSource = {
           resolve(messages);
           
           firebaseRef.on('child_added', (msg) => {
-            console.log(msg.val());
             let msgVal = msg.val();
             msgVal.key = msg.key();
             Actions.messageReceived(msgVal);

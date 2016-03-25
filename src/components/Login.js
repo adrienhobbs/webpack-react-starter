@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import mui from 'material-ui';
 import Actions from '../actions';
 
@@ -13,8 +13,13 @@ export class Login extends React.Component {
 
   };
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
+
   onClick () {
-    Actions.login();
+    console.log(this);
+    Actions.login(this.context.router);
   }
 
   render () {

@@ -3,7 +3,7 @@ import mui from 'material-ui';
 import trim from 'trim';
 import Actions from '../actions';
 var {Card} = mui;
-
+// import Firebase from 'firebase';
 export class MessageBox extends React.Component {
   constructor (props) {
     super(props);
@@ -26,6 +26,15 @@ export class MessageBox extends React.Component {
     }
   }
 
+  // componentDidMount () {
+  //   let firebaseRef = new Firebase('https://hobbs-react-stack.firebaseio.com');
+  //   // let pad = this.refs.pad;
+  //   // setTimeout(function () {
+  //   // var codeMirror = CodeMirror(pad, { lineWrapping: true });
+  //   // var firepad = Firepad.fromCodeMirror(firebaseRef, codeMirror, { richTextShortcuts: true, richTextToolbar: true, defaultText: 'Hello, World!' });
+  //   // }, 2000);
+  // }
+
   render () {
     return (
       <Card style={{maxWidth: 1200, margin: '30px auto', padding: 30}}>
@@ -40,3 +49,6 @@ export class MessageBox extends React.Component {
 };
 
 export default MessageBox;
+
+//
+        // <div ref='pad' id='pad'></div>

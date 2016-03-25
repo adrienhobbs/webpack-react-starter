@@ -1,14 +1,10 @@
 import React, {PropTypes} from 'react';
-import MessageList from './MessageList.js';
-import ChannelList from './ChannelList.js';
-import MessageBox from './MessageBox.js';
+// import {RouteHandler} from 'react-router';
 import mui from 'material-ui';
 import AppBar from 'material-ui/lib/app-bar';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
-import connectToStores from 'alt-utils/lib/connectToStores';
-import ChatStore from '../stores/ChatStore.js';
-import Login from './Login.js';
+import Actions from '../actions';
 var Colors = mui.Styles.Colors;
 
 const MyRawTheme = {
@@ -21,40 +17,31 @@ const MyRawTheme = {
 };
 
 @ThemeDecorator(ThemeManager.getMuiTheme(MyRawTheme))
-@connectToStores
 export class App extends React.Component {
 
   static propTypes = {
-    user: PropTypes.object
+    user: PropTypes.object,
+    children: PropTypes.object,
+    location: PropTypes.object
   };
 
   constructor (props) {
     super(props);
   }
 
-  static getStores () {
-    return [ChatStore];
-  }
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  };
 
-  static getPropsFromStores () {
-    return ChatStore.getState();
+  componentWillMount () {
+    Actions.isLoggedIn(this.context.router, this.props.location);
   }
 
   render () {
-    var view = <Login />;
-    if (this.props.user) {
-      view = <div style={{width: '96%', margin: 'auto'}}>
-        <div style={{display: 'flex', flexFlow: 'row wrap', maxWidth: 1200, width: '100%', margin: '30px auto'}}>
-          <ChannelList />
-          <MessageList />
-        </div>
-        <MessageBox />
-      </div>;
-    }
     return (
       <div>
         <AppBar title='Awesome Chat App' />
-        {view}
+        {this.props.children}
       </div>
     );
   }

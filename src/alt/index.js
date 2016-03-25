@@ -1,2 +1,5 @@
 import Alt from 'alt';
-export default new Alt();
+var alt = new Alt();
+Alt.debug('alt', alt);
+export default alt;
+

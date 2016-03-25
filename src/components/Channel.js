@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import mui from 'material-ui';
-import Actions from '../actions';
 var {ListItem} = mui;
 
 export class Channel extends React.Component {
@@ -9,12 +8,16 @@ export class Channel extends React.Component {
     channel: PropTypes.object
   };
 
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   constructor (props) {
     super(props);
   }
 
   onClick () {
-    Actions.channelOpened(this.props.channel);
+    this.context.router.push('/chat/' + this.props.channel.key);
   }
 
   render () {

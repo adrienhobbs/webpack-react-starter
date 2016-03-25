@@ -19,6 +19,8 @@ class ChatStore {
   @bind(Actions.sendMessage)
   sendMessage (message) {
     this.state.message = message;
+
+    // @todo use fetch instead of setTimeout?
     setTimeout(this.getInstance().sendMessage, 100);
   }
 
@@ -60,7 +62,6 @@ class ChatStore {
     _(this.state.channels)
     .values()
     .each((channel) => {
-      console.log(channel);
       channel.selected = false;
     })
     .value();
@@ -82,15 +83,15 @@ class ChatStore {
     .keys()
     .each((key, index) => {
       channels[key].key = key;
-      if (index === 0) {
-        channels[key].selected = true;
+      if (channels[key].selected) {
         selectedChannel = channels[key];
       }
     })
     .value();
 
     this.setState({
-      channels, selectedChannel
+      channels, selectedChannel,
+      messagesDirty: true
     });
 
     setTimeout(this.getInstance().getMessages, 100);
@@ -98,6 +99,11 @@ class ChatStore {
 
   @bind(Actions.login)
   login (user) {
+    this.setState({user: user});
+  }
+
+  @bind(Actions.isLoggedIn)
+  isLoggedIn (user) {
     this.setState({user: user});
   }
 }

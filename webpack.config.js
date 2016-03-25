@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var use = require('postcss-use');
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: '#inline-source-map',
   postcss: [
     require('postcss-normalize'),
     require('postcss-center'),

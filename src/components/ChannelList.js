@@ -10,12 +10,24 @@ var {Card, List, CircularProgress} = mui;
 export class ChannelList extends React.Component {
 
   static propTypes = {
-    channels: PropTypes.object
+    channels: PropTypes.object,
+    params: PropTypes.object
   }
 
   constructor (props) {
     super(props);
-    ChatStore.getChannels();
+  }
+
+  componentDidMount () {
+    this.selectedChannel = this.props.params.channel;
+    ChatStore.getChannels(this.selectedChannel);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.selectedChannel !== nextProps.params.channel) {
+      this.selectedChannel = nextProps.params.channel;
+      ChatStore.getChannels(this.selectedChannel);
+    }
   }
 
   static contextTypes = {
